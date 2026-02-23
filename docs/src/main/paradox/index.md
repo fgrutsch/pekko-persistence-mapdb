@@ -16,7 +16,7 @@ Add the following dependency to your `build.sbt`:
 
 
 @@dependency[sbt,Maven] {
-  group="com.fgrutsch"
+  group="io.github.fgrutsch"
   artifact="pekko-persistence-mapdb_$scala.binary.version$"
   version="$version$"
 }

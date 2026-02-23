@@ -7,11 +7,11 @@ Get read journal in Scala:
 ```scala
 import org.apache.pekko.actor.ActorSystem
 import org.apache.pekko.persistence.query.PersistenceQuery
-import com.fgrutsch.akka.persistence.mapdb.query.scaladsl.MapDbReadJournal
+import io.github.fgrutsch.pekko.persistence.mapdb.query.scaladsl.MapDbReadJournal
 
-val actorSystem: ActorSystem        = ???
-val readJournal: MapDbReadJournal   = PersistenceQuery(actorSystem)
-                                       .readJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
+val actorSystem: ActorSystem = ???
+val readJournal: MapDbReadJournal = PersistenceQuery(actorSystem)
+  .readJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
 ```
 
 Get read journal in Java:
@@ -19,11 +19,11 @@ Get read journal in Java:
 ```java
 import org.apache.pekko.actor.ActorSystem
 import org.apache.pekko.persistence.query.PersistenceQuery
-import com.fgrutsch.akka.persistence.mapdb.query.javadsl.MapDbReadJournal
+import io.github.fgrutsch.pekko.persistence.mapdb.query.javadsl.MapDbReadJournal
 
-final ActorSystem actorSystem         = ???
-final MapDbReadJournal readJournal    = PersistenceQuery.get(actorSystem)
-                                        .getReadJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
+final ActorSystem actorSystem = ???
+final MapDbReadJournal readJournal = PersistenceQuery.get(actorSystem)
+        .getReadJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
 ```
 
 
