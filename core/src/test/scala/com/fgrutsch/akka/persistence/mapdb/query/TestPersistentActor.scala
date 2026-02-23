@@ -1,13 +1,13 @@
 package com.fgrutsch.akka.persistence.mapdb.query
 
-import akka.actor.Status.{Failure, Success}
-import akka.actor.{ActorRef, Stash}
-import akka.persistence.{DeleteMessagesFailure, DeleteMessagesSuccess, PersistentActor}
 import com.fgrutsch.akka.persistence.mapdb.query.TestPersistenceActor._
-import testing.AkkaSerializable
+import org.apache.pekko.actor.Status.{Failure, Success}
+import org.apache.pekko.actor.{ActorRef, Stash}
+import org.apache.pekko.persistence.{DeleteMessagesFailure, DeleteMessagesSuccess, PersistentActor}
+import testing.PekkoSerializable
 
 object TestPersistenceActor {
-  sealed trait Event extends AkkaSerializable
+  sealed trait Event extends PekkoSerializable
   object Event {
     final case class Untagged(msg: String)            extends Event
     final case class Tagged(msg: String, tag: String) extends Event

@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package com.fgrutsch.akka.persistence.mapdb.db
 
-import akka.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId}
+import org.apache.pekko.actor.{ActorSystem, ExtendedActorSystem, Extension, ExtensionId}
 import org.mapdb.DB
 
 object MapDbExtension extends ExtensionId[MapDbExtensionImpl] {

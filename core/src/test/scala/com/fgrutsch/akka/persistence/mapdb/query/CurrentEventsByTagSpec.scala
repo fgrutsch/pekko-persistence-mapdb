@@ -1,8 +1,8 @@
 package com.fgrutsch.akka.persistence.mapdb.query
 
-import akka.pattern.ask
-import akka.persistence.query.Sequence
 import com.fgrutsch.akka.persistence.mapdb.query.TestPersistenceActor.{Command, Event}
+import org.apache.pekko.pattern.ask
+import org.apache.pekko.persistence.query.Sequence
 
 class CurrentEventsByTagSpec extends MapDbReadJournalSpec {
 

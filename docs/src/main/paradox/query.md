@@ -1,12 +1,12 @@
 # Query
 
-If you need to query the stored events you can use [Persistence Query](https://doc.akka.io/docs/akka/current/persistence-query.html) to stream them from the journal (Scala and Java supported).
+If you need to query the stored events you can use [Persistence Query](https://pekko.apache.org/docs/pekko/1.1/persistence-query.html) to stream them from the journal (Scala and Java supported).
 
 Get read journal in Scala:
 
 ```scala
-import akka.actor.ActorSystem
-import akka.persistence.query.PersistenceQuery
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.persistence.query.PersistenceQuery
 import com.fgrutsch.akka.persistence.mapdb.query.scaladsl.MapDbReadJournal
 
 val actorSystem: ActorSystem        = ???
@@ -17,8 +17,8 @@ val readJournal: MapDbReadJournal   = PersistenceQuery(actorSystem)
 Get read journal in Java:
 
 ```java
-import akka.actor.ActorSystem
-import akka.persistence.query.PersistenceQuery
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.persistence.query.PersistenceQuery
 import com.fgrutsch.akka.persistence.mapdb.query.javadsl.MapDbReadJournal
 
 final ActorSystem actorSystem         = ???
@@ -43,4 +43,4 @@ The internal behavior of the read journal queries can be changed (e.g. refresh i
 
 ## Event Adapters
 
-When reading events from the journal the `MapDbReadJournal` applies configured [events adapters](https://doc.akka.io/docs/akka/current/persistence.html#event-adapters) thay you may have configured in the @ref:[write plugin](journal-snapshots.md#tagging) (under the `mapdb-journal` configuration key).
+When reading events from the journal the `MapDbReadJournal` applies configured [events adapters](https://pekko.apache.org/docs/pekko/1.1/typed/persistence.html#event-adapters) thay you may have configured in the @ref:[write plugin](journal-snapshots.md#tagging) (under the `mapdb-journal` configuration key).

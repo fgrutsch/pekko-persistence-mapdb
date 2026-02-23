@@ -1,8 +1,8 @@
 package testing
 
-import akka.actor.ActorSystem
-import akka.util.Timeout
 import com.typesafe.config.{Config, ConfigFactory}
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.util.Timeout
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{BeforeAndAfterAll, TestSuite}
 

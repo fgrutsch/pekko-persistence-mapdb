@@ -1,6 +1,6 @@
 package com.fgrutsch.akka.persistence.mapdb.query
 
-import akka.persistence.journal.{EventAdapter, EventSeq, Tagged}
+import org.apache.pekko.persistence.journal.{EventAdapter, EventSeq, Tagged}
 
 class TestEventAdapter extends EventAdapter {
 

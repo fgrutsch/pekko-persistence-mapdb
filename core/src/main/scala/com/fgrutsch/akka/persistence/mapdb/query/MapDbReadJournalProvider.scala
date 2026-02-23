@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 package com.fgrutsch.akka.persistence.mapdb.query
 
-import akka.actor.ExtendedActorSystem
-import akka.persistence.query.ReadJournalProvider
 import com.typesafe.config.Config
+import org.apache.pekko.actor.ExtendedActorSystem
+import org.apache.pekko.persistence.query.ReadJournalProvider
 
 class MapDbReadJournalProvider(system: ExtendedActorSystem, config: Config) extends ReadJournalProvider {
   override def scaladslReadJournal(): scaladsl.MapDbReadJournal = new scaladsl.MapDbReadJournal(config)(using system)

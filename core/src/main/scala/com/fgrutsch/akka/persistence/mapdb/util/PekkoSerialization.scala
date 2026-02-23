@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,23 @@
 
 package com.fgrutsch.akka.persistence.mapdb.util
 
-import akka.persistence.{PersistentRepr, SelectedSnapshot, SnapshotMetadata}
-import akka.serialization.{Serialization, Serializers}
 import com.fgrutsch.akka.persistence.mapdb.journal.JournalRow
 import com.fgrutsch.akka.persistence.mapdb.snapshot.SnapshotRow
+import org.apache.pekko.persistence.{PersistentRepr, SelectedSnapshot, SnapshotMetadata}
+import org.apache.pekko.serialization.{Serialization, Serializers}
 
 import scala.util.Try
 
-private[mapdb] object AkkaSerialization {
+private[mapdb] object PekkoSerialization {
 
-  case class AkkaSerialized(serId: Int, serManifest: String, payload: Array[Byte])
+  case class PekkoSerialized(serId: Int, serManifest: String, payload: Array[Byte])
 
-  def serialize(serialization: Serialization)(payload: Any): Try[AkkaSerialized] = {
+  def serialize(serialization: Serialization)(payload: Any): Try[PekkoSerialized] = {
     val p2          = payload.asInstanceOf[AnyRef]
     val serializer  = serialization.findSerializerFor(p2)
     val serManifest = Serializers.manifestFor(serializer, p2)
     val serialized  = serialization.serialize(p2)
-    serialized.map(payload => AkkaSerialized(serializer.identifier, serManifest, payload))
+    serialized.map(payload => PekkoSerialized(serializer.identifier, serManifest, payload))
   }
 
   def fromJournalRow(serialization: Serialization)(row: JournalRow): Try[(PersistentRepr, Long)] = {

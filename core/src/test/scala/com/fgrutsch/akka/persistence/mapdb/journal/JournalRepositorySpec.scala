@@ -1,8 +1,8 @@
 package com.fgrutsch.akka.persistence.mapdb.journal
 
-import akka.stream.scaladsl.Sink
 import com.fgrutsch.akka.persistence.mapdb.db.MapDbExtension
 import com.typesafe.config.{Config, ConfigFactory}
+import org.apache.pekko.stream.scaladsl.Sink
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.time.{Seconds, Span}

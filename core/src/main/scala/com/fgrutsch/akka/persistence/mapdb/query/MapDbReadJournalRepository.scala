@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
 
 package com.fgrutsch.akka.persistence.mapdb.query
 
-import akka.NotUsed
-import akka.actor.{ActorSystem, Scheduler}
-import akka.stream.scaladsl.{Sink, Source}
 import com.fgrutsch.akka.persistence.mapdb.journal.{JournalRow, JournalRowMapDbSerializer}
 import com.fgrutsch.akka.persistence.mapdb.query.MapDbReadJournalRepository.FlowControl
 import com.fgrutsch.akka.persistence.mapdb.query.MapDbReadJournalRepository.FlowControl.{
@@ -26,6 +23,9 @@ import com.fgrutsch.akka.persistence.mapdb.query.MapDbReadJournalRepository.Flow
   ContinueDelayed,
   Stop
 }
+import org.apache.pekko.NotUsed
+import org.apache.pekko.actor.{ActorSystem, Scheduler}
+import org.apache.pekko.stream.scaladsl.{Sink, Source}
 import org.mapdb.DB
 
 import scala.concurrent.duration.FiniteDuration
@@ -122,7 +122,7 @@ class MapDbReadJournalRepository(db: DB, conf: ReadJournalConfig.DbConfig)(impli
             case Continue        => retrieveNextBatch()
             case ContinueDelayed =>
               val (delay, scheduler) = refreshInterval.get
-              akka.pattern.after(delay, scheduler)(retrieveNextBatch())
+              org.apache.pekko.pattern.after(delay, scheduler)(retrieveNextBatch())
           }
       }
       .mapConcat(identity)
@@ -155,7 +155,7 @@ class MapDbReadJournalRepository(db: DB, conf: ReadJournalConfig.DbConfig)(impli
           case Continue        => retrieveNextBatch()
           case ContinueDelayed =>
             val (delay, scheduler) = refreshInterval
-            akka.pattern.after(delay, scheduler)(retrieveNextBatch())
+            org.apache.pekko.pattern.after(delay, scheduler)(retrieveNextBatch())
         }
       }
       .mapConcat(identity)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 package com.fgrutsch.akka.persistence.mapdb.journal
 
-import akka.actor.ActorSystem
-import akka.persistence.journal.{AsyncWriteJournal, Tagged}
-import akka.persistence.{AtomicWrite, PersistentRepr}
-import akka.serialization.SerializationExtension
 import com.fgrutsch.akka.persistence.mapdb.db.MapDbExtension
-import com.fgrutsch.akka.persistence.mapdb.util.AkkaSerialization
+import com.fgrutsch.akka.persistence.mapdb.util.PekkoSerialization
 import com.typesafe.config.Config
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.persistence.journal.{AsyncWriteJournal, Tagged}
+import org.apache.pekko.persistence.{AtomicWrite, PersistentRepr}
+import org.apache.pekko.serialization.SerializationExtension
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
@@ -63,7 +63,7 @@ class MapDbJournal(config: Config) extends AsyncWriteJournal {
       recoveryCallback: PersistentRepr => Unit): Future[Unit] = {
     repo
       .list(persistenceId, fromSequenceNr, toSequenceNr, max)
-      .map(AkkaSerialization.fromJournalRow(serialization)(_))
+      .map(PekkoSerialization.fromJournalRow(serialization)(_))
       .mapAsync(1)(reprAndOrdering => Future.fromTry(reprAndOrdering))
       .runForeach { case (repr, _) => recoveryCallback(repr) }
       .map(_ => ())
@@ -83,7 +83,7 @@ class MapDbJournal(config: Config) extends AsyncWriteJournal {
       case _                     => (repr, Set.empty[String])
     }
 
-    val serialized = AkkaSerialization.serialize(serialization)(flattenedRepr.payload).get
+    val serialized = PekkoSerialization.serialize(serialization)(flattenedRepr.payload).get
 
     JournalRow(
       Long.MinValue,
