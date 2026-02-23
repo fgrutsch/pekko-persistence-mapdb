@@ -15,16 +15,16 @@ addCommandAlias("codeVerify", ";scalafmtCheckAll;scalafmtSbtCheck;scalafixAll --
 lazy val commonSettings = Seq(
   organization := "io.github.fgrutsch",
   startYear    := Some(2021),
-  homepage     := Some(url("https://github.com/fgrutsch/akka-persistence-mapdb")),
+  homepage     := Some(url("https://github.com/fgrutsch/pekko-persistence-mapdb")),
   licenses     := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
   scmInfo      := Some(
-    ScmInfo(homepage.value.get, "scm:git:https://github.com/fgrutsch/akka-persistence-mapdb.git")
+    ScmInfo(homepage.value.get, "scm:git:https://github.com/fgrutsch/pekko-persistence-mapdb.git")
   ),
   developers += Developer(
     "contributors",
     "Contributors",
     "",
-    url("https://github.com/fgrutsch/akka-persistence-mapdb/graphs/contributors")
+    url("https://github.com/fgrutsch/pekko-persistence-mapdb/graphs/contributors")
   ),
   scalacOptions ++= {
     val common = Seq(
@@ -41,7 +41,6 @@ lazy val commonSettings = Seq(
       case Some((3, _)) =>
         common ++ List(
           "-explain-types"
-          // "-Ysafe-init" // problems with akka.persistence.Eventsourced
         )
       case _ =>
         common ++ List(
@@ -54,7 +53,7 @@ lazy val commonSettings = Seq(
     }
   },
   Test / parallelExecution := false,
-  headerLicense     := Some(HeaderLicense.ALv2(LocalDate.now.getYear.toString, "akka-persistence-mapdb contributors")),
+  headerLicense     := Some(HeaderLicense.ALv2(LocalDate.now.getYear.toString, "pekko-persistence-mapdb contributors")),
   semanticdbEnabled := true,
   semanticdbVersion := scalafixSemanticdb.revision
 )
@@ -69,7 +68,7 @@ lazy val core = project
   .in(file("core"))
   .settings(commonSettings)
   .settings(
-    name := "akka-persistence-mapdb",
+    name := "pekko-persistence-mapdb",
     libraryDependencies ++= Dependencies.core,
     libraryDependencies ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
@@ -83,7 +82,7 @@ lazy val docs = project
   .in(file("docs"))
   .settings(commonSettings)
   .settings(
-    name                         := "akka-persistence-mapdb-docs",
+    name                         := "pekko-persistence-mapdb-docs",
     publish / skip               := true,
     githubWorkflowArtifactUpload := false,
     paradoxProperties ++= Map(

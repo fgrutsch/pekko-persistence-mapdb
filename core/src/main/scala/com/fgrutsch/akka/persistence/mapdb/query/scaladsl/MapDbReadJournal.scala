@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,19 @@
 
 package com.fgrutsch.akka.persistence.mapdb.query.scaladsl
 
-import akka.NotUsed
-import akka.actor.{ExtendedActorSystem, Scheduler}
-import akka.persistence.query.scaladsl._
-import akka.persistence.query.{EventEnvelope, Offset, Sequence}
-import akka.persistence.{Persistence, PersistentRepr}
-import akka.serialization.SerializationExtension
-import akka.stream.scaladsl.Source
 import com.fgrutsch.akka.persistence.mapdb.db.MapDbExtension
-import com.fgrutsch.akka.persistence.mapdb.query.{MapDbReadJournalRepository, ReadJournalConfig, _}
-import com.fgrutsch.akka.persistence.mapdb.util.AkkaSerialization
+import com.fgrutsch.akka.persistence.mapdb.query._
+import com.fgrutsch.akka.persistence.mapdb.util.PekkoSerialization
 import com.typesafe.config.Config
+import org.apache.pekko.NotUsed
+import org.apache.pekko.actor.{ExtendedActorSystem, Scheduler}
+import org.apache.pekko.persistence.query.scaladsl._
+import org.apache.pekko.persistence.query.{EventEnvelope, Offset, Sequence}
+import org.apache.pekko.persistence.{Persistence, PersistentRepr}
+import org.apache.pekko.serialization.SerializationExtension
+import org.apache.pekko.stream.scaladsl.Source
 
-import scala.concurrent.duration.{DurationInt, FiniteDuration}
+import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ExecutionContext, Future}
 
 object MapDbReadJournal {
@@ -54,7 +54,7 @@ class MapDbReadJournal(config: Config)(implicit val system: ExtendedActorSystem)
   private val readJournalConfig = new ReadJournalConfig(config)
   private val db                = MapDbExtension(system).database
   private val repo              = new MapDbReadJournalRepository(db, readJournalConfig.db)
-  private val delaySource       = Source.tick(readJournalConfig.refreshInterval, 0.seconds, 0).take(1)
+  private val delaySource = Source.tick(readJournalConfig.refreshInterval, readJournalConfig.refreshInterval, 0).take(1)
 
   override def currentPersistenceIds(): Source[String, NotUsed] = {
     repo.allPersistenceIds()
@@ -119,7 +119,7 @@ class MapDbReadJournal(config: Config)(implicit val system: ExtendedActorSystem)
 
     repo
       .listBatched(persistenceId, fromSequenceNr, toSequenceNr, batchSize, refreshInterval)
-      .map(AkkaSerialization.fromJournalRow(serialization)(_))
+      .map(PekkoSerialization.fromJournalRow(serialization)(_))
       .mapAsync(1)(reprAndOrdering => Future.fromTry(reprAndOrdering))
       .mapConcat { case (repr, ordering) => adaptEvents(repr).map(_ -> ordering) }
       .map { case (repr, ordering) =>
@@ -138,7 +138,7 @@ class MapDbReadJournal(config: Config)(implicit val system: ExtendedActorSystem)
     repo
       .listBatched(tag, offset, terminateAfterOrdering, batchSize, refreshInterval)
       .mapMaterializedValue(_ => NotUsed)
-      .map(AkkaSerialization.fromJournalRow(serialization)(_))
+      .map(PekkoSerialization.fromJournalRow(serialization)(_))
       .mapAsync(1)(reprAndOrdering => Future.fromTry(reprAndOrdering))
       .mapConcat { case (repr, ordering) => adaptEvents(repr).map(_ -> ordering) }
       .map { case (repr, ordering) =>

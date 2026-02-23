@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ private[db] object MapDbProvider {
 
 private[db] class MapDbProvider(config: Config) {
 
-  private val baseDbConf = new MapDbProvider.BaseConfig(config.getConfig("akka-persistence-mapdb.db"))
+  private val baseDbConf = new MapDbProvider.BaseConfig(config.getConfig("pekko-persistence-mapdb.db"))
   private val fileDbConf = baseDbConf.fileDbConfig
 
   def setup(): DB = {

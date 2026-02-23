@@ -12,11 +12,11 @@ class MapDbProviderSpec extends AnyFunSuite with Matchers {
 
   test("setup a memory MapDB database") {
     val config = ConfigFactory.parseString("""
-      akka-persistence-mapdb.db.mode = "memory"
-      akka-persistence-mapdb.db.transaction-enable = true
-      akka-persistence-mapdb.db.close-on-jvm-shutdown = true
-      akka-persistence-mapdb.db.file.path = "akka-persistence-mapdb_test"
-      akka-persistence-mapdb.db.file.delete-after-close = true
+      pekko-persistence-mapdb.db.mode = "memory"
+      pekko-persistence-mapdb.db.transaction-enable = true
+      pekko-persistence-mapdb.db.close-on-jvm-shutdown = true
+      pekko-persistence-mapdb.db.file.path = "pekko-persistence-mapdb_test"
+      pekko-persistence-mapdb.db.file.delete-after-close = true
     """.stripMargin)
 
     check(config)
@@ -24,11 +24,11 @@ class MapDbProviderSpec extends AnyFunSuite with Matchers {
 
   test("setup a file MapDB database") {
     val config = ConfigFactory.parseString("""
-      akka-persistence-mapdb.db.mode = "file"
-      akka-persistence-mapdb.db.transaction-enable = true
-      akka-persistence-mapdb.db.close-on-jvm-shutdown = true
-      akka-persistence-mapdb.db.file.path = "akka-persistence-mapdb_test"
-      akka-persistence-mapdb.db.file.delete-after-close = true
+      pekko-persistence-mapdb.db.mode = "file"
+      pekko-persistence-mapdb.db.transaction-enable = true
+      pekko-persistence-mapdb.db.close-on-jvm-shutdown = true
+      pekko-persistence-mapdb.db.file.path = "pekko-persistence-mapdb_test"
+      pekko-persistence-mapdb.db.file.delete-after-close = true
     """.stripMargin)
 
     check(config)
@@ -36,11 +36,11 @@ class MapDbProviderSpec extends AnyFunSuite with Matchers {
 
   test("setup a temp file MapDB database") {
     val config = ConfigFactory.parseString("""
-      akka-persistence-mapdb.db.mode = "temp-file"
-      akka-persistence-mapdb.db.transaction-enable = true
-      akka-persistence-mapdb.db.close-on-jvm-shutdown = true
-      akka-persistence-mapdb.db.file.path = "akka-persistence-mapdb_test"
-      akka-persistence-mapdb.db.file.delete-after-close = true
+      pekko-persistence-mapdb.db.mode = "temp-file"
+      pekko-persistence-mapdb.db.transaction-enable = true
+      pekko-persistence-mapdb.db.close-on-jvm-shutdown = true
+      pekko-persistence-mapdb.db.file.path = "pekko-persistence-mapdb_test"
+      pekko-persistence-mapdb.db.file.delete-after-close = true
     """.stripMargin)
 
     check(config)

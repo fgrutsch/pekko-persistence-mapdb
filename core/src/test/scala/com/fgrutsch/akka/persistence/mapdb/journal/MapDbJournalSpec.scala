@@ -1,8 +1,8 @@
 package com.fgrutsch.akka.persistence.mapdb.journal
 
-import akka.persistence.CapabilityFlag
-import akka.persistence.journal.JournalSpec
 import com.typesafe.config.ConfigFactory
+import org.apache.pekko.persistence.CapabilityFlag
+import org.apache.pekko.persistence.journal.JournalSpec
 
 abstract class MapDbJournalSpec(configName: String) extends JournalSpec(ConfigFactory.load(configName)) {
   override protected def supportsRejectingNonSerializableObjects: CapabilityFlag = CapabilityFlag.on()

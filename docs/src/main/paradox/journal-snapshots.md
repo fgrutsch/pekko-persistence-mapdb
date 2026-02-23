@@ -1,9 +1,9 @@
 # Journal and Snapshots
 
-Add the following to your `application.conf` to use akka-persistence-mapdb as the persistence backend:
+Add the following to your `application.conf` to use pekko-persistence-mapdb as the persistence backend:
 
 ```
-akka {
+pekko {
   persistence {
     journal {
       plugin = "mapdb-journal"
@@ -15,18 +15,18 @@ akka {
 }
 ```
 
-This is the minimum required configuration you need to use `akka-persistence-mapdb`. No further configuration is needed to get it running. Be aware that this by default stores data in memory, check out the @ref:[Configuration](configuration.md) page on how to do that.
+This is the minimum required configuration you need to use `pekko-persistence-mapdb`. No further configuration is needed to get it running. Be aware that this by default stores data in memory, check out the @ref:[Configuration](configuration.md) page on how to do that.
 
 ## Tagging
 
-To support tagging you need to provide an [event adapter](https://doc.akka.io/docs/akka/current/persistence.html#event-adapters) that wraps your payload using the `akka.persistence.journal.Tagged` class.
+To support tagging you need to provide an [event adapter](https://pekko.apache.org/docs/pekko/1.1/typed/persistence.html#event-adapters) that wraps your payload using the `org.apache.pekko.persistence.journal.Tagged` class.
 
 Implementing the event adapter:
 
 ```scala
 package docs.mapdb
 
-import akka.persistence.journal.{EventAdapter, EventSeq, Tagged}
+import org.apache.pekko.persistence.journal.{EventAdapter, EventSeq, Tagged}
 
 final case class TestEvent(name: String, tag: String)
 

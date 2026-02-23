@@ -1,4 +1,4 @@
-# Akka Persistence MapDB
+# Pekko Persistence MapDB
 
 @@@ index
 
@@ -8,7 +8,7 @@
 
 @@@
 
-akka-persistence-mapdb is a plugin for [akka-persistence](https://doc.akka.io/docs/akka/current/typed/index-persistence.html) which uses MapDB for storing journal and snapshot messages.
+pekko-persistence-mapdb is a plugin for [pekko-persistence](https://pekko.apache.org/docs/pekko/current/typed/index-persistence.html) which uses MapDB for storing journal and snapshot messages.
 
 ## Installation
 
@@ -17,13 +17,13 @@ Add the following dependency to your `build.sbt`:
 
 @@dependency[sbt,Maven] {
   group="com.fgrutsch"
-  artifact="akka-persistence-mapdb_$scala.binary.version$"
+  artifact="pekko-persistence-mapdb_$scala.binary.version$"
   version="$version$"
 }
 
 ## Changelog
 
-For the changelog check [this](https://github.com/fgrutsch/akka-persistence-mapdb/releases) page.
+For the changelog check [this](https://github.com/fgrutsch/pekko-persistence-mapdb/releases) page.
 
 
 ## Pages

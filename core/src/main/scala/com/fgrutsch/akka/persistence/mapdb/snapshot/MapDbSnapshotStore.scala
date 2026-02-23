@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 akka-persistence-mapdb contributors
+ * Copyright 2026 pekko-persistence-mapdb contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 package com.fgrutsch.akka.persistence.mapdb.snapshot
 
-import akka.actor.ActorSystem
-import akka.persistence.snapshot.SnapshotStore
-import akka.persistence.{SelectedSnapshot, SnapshotMetadata, SnapshotSelectionCriteria}
-import akka.serialization.SerializationExtension
 import com.fgrutsch.akka.persistence.mapdb.db.MapDbExtension
-import com.fgrutsch.akka.persistence.mapdb.util.AkkaSerialization
+import com.fgrutsch.akka.persistence.mapdb.util.PekkoSerialization
 import com.typesafe.config.Config
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.persistence.snapshot.SnapshotStore
+import org.apache.pekko.persistence.{SelectedSnapshot, SnapshotMetadata, SnapshotSelectionCriteria}
+import org.apache.pekko.serialization.SerializationExtension
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -57,7 +57,7 @@ class MapDbSnapshotStore(config: Config) extends SnapshotStore {
     snapshotRow
       .flatMap {
         case Some(row) =>
-          val selectedSnapshot = AkkaSerialization.fromSnapshotRow(serialization)(row)
+          val selectedSnapshot = PekkoSerialization.fromSnapshotRow(serialization)(row)
           Future.fromTry(selectedSnapshot).map(Option(_))
         case None =>
           Future.successful(None)
@@ -92,7 +92,7 @@ class MapDbSnapshotStore(config: Config) extends SnapshotStore {
   }
 
   private def serialize(meta: SnapshotMetadata, snapshot: Any) = {
-    AkkaSerialization
+    PekkoSerialization
       .serialize(serialization)(snapshot)
       .map { serialized =>
         SnapshotRow(

@@ -1,7 +1,7 @@
 package com.fgrutsch.akka.persistence.mapdb.snapshot
 
-import akka.persistence.snapshot.SnapshotStoreSpec
 import com.typesafe.config.ConfigFactory
+import org.apache.pekko.persistence.snapshot.SnapshotStoreSpec
 
 abstract class MapDbSnapshotStoreSpec(configName: String) extends SnapshotStoreSpec(ConfigFactory.load(configName))
 

@@ -1,39 +1,39 @@
 package com.fgrutsch.akka.persistence.mapdb.util
 
-import akka.persistence.{PersistentRepr, SnapshotMetadata}
-import akka.serialization.SerializationExtension
 import com.fgrutsch.akka.persistence.mapdb.journal.JournalRow
 import com.fgrutsch.akka.persistence.mapdb.snapshot.SnapshotRow
-import com.fgrutsch.akka.persistence.mapdb.util.AkkaSerializationSpec.TestMessage
+import com.fgrutsch.akka.persistence.mapdb.util.PekkoSerializationSpec.TestMessage
 import com.typesafe.config.{Config, ConfigFactory}
+import org.apache.pekko.persistence.{PersistentRepr, SnapshotMetadata}
+import org.apache.pekko.serialization.SerializationExtension
 import org.scalatest.TryValues
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.must.Matchers
-import testing.{AkkaSerializable, TestActorSystem}
+import testing.{PekkoSerializable, TestActorSystem}
 
 import java.time.Instant
 
-object AkkaSerializationSpec {
-  final case class TestMessage(name: String, birthYear: Int) extends AkkaSerializable
+object PekkoSerializationSpec {
+  final case class TestMessage(name: String, birthYear: Int) extends PekkoSerializable
 }
 
-class AkkaSerializationSpec extends AnyFunSuite with Matchers with TryValues with TestActorSystem {
+class PekkoSerializationSpec extends AnyFunSuite with Matchers with TryValues with TestActorSystem {
 
   private val serialization = SerializationExtension(actorSystem)
 
   test("serialize encodes a journal message") {
     val msg    = TestMessage("mapdb", 2021)
-    val result = AkkaSerialization.serialize(serialization)(msg)
+    val result = PekkoSerialization.serialize(serialization)(msg)
 
     val actual = result.success.value
     actual.serId mustBe 33
-    actual.serManifest mustBe "com.fgrutsch.akka.persistence.mapdb.util.AkkaSerializationSpec$TestMessage"
+    actual.serManifest mustBe "com.fgrutsch.akka.persistence.mapdb.util.PekkoSerializationSpec$TestMessage"
     actual.payload must not be empty
   }
 
   test("deserialize decodes a journal message") {
     val msg           = TestMessage("mapdb", 2021)
-    val msgSerialized = AkkaSerialization.serialize(serialization)(msg)
+    val msgSerialized = PekkoSerialization.serialize(serialization)(msg)
 
     val row = JournalRow(
       1,
@@ -49,7 +49,7 @@ class AkkaSerializationSpec extends AnyFunSuite with Matchers with TryValues wit
       Set.empty
     )
 
-    val result           = AkkaSerialization.fromJournalRow(serialization)(row)
+    val result           = PekkoSerialization.fromJournalRow(serialization)(row)
     val (repr, ordering) = result.success.value
     repr mustBe PersistentRepr(msg, 1, "pid", writerUuid = "writer")
     ordering mustBe 1
@@ -57,17 +57,17 @@ class AkkaSerializationSpec extends AnyFunSuite with Matchers with TryValues wit
 
   test("serialize encodes a snapshot message") {
     val msg    = TestMessage("mapdb", 2021)
-    val result = AkkaSerialization.serialize(serialization)(msg)
+    val result = PekkoSerialization.serialize(serialization)(msg)
 
     val actual = result.success.value
     actual.serId mustBe 33
-    actual.serManifest mustBe "com.fgrutsch.akka.persistence.mapdb.util.AkkaSerializationSpec$TestMessage"
+    actual.serManifest mustBe "com.fgrutsch.akka.persistence.mapdb.util.PekkoSerializationSpec$TestMessage"
     actual.payload must not be empty
   }
 
   test("deserialize decodes a snapshot message") {
     val msg           = TestMessage("mapdb", 2021)
-    val msgSerialized = AkkaSerialization.serialize(serialization)(msg)
+    val msgSerialized = PekkoSerialization.serialize(serialization)(msg)
 
     val row = SnapshotRow(
       "pid",
@@ -78,7 +78,7 @@ class AkkaSerializationSpec extends AnyFunSuite with Matchers with TryValues wit
       msgSerialized.success.value.serManifest
     )
 
-    val result = AkkaSerialization.fromSnapshotRow(serialization)(row)
+    val result = PekkoSerialization.fromSnapshotRow(serialization)(row)
     val actual = result.success.value
     actual.metadata mustBe SnapshotMetadata("pid", 1, Instant.EPOCH.toEpochMilli)
     actual.snapshot mustBe a[TestMessage]
@@ -87,9 +87,9 @@ class AkkaSerializationSpec extends AnyFunSuite with Matchers with TryValues wit
 
   override protected def systemConfig: Config = {
     ConfigFactory.parseString("""
-        |akka.actor {
+        |pekko.actor {
         |  serialization-bindings {
-        |    "testing.AkkaSerializable" = jackson-cbor
+        |    "testing.PekkoSerializable" = jackson-cbor
         |  }
         |}
         |""".stripMargin)
