@@ -18,7 +18,11 @@ package io.github.fgrutsch.pekko.persistence.mapdb.query
 
 import io.github.fgrutsch.pekko.persistence.mapdb.journal.{JournalRow, JournalRowMapDbSerializer}
 import io.github.fgrutsch.pekko.persistence.mapdb.query.MapDbReadJournalRepository.FlowControl
-import io.github.fgrutsch.pekko.persistence.mapdb.query.MapDbReadJournalRepository.FlowControl.{Continue, ContinueDelayed, Stop}
+import io.github.fgrutsch.pekko.persistence.mapdb.query.MapDbReadJournalRepository.FlowControl.{
+  Continue,
+  ContinueDelayed,
+  Stop
+}
 import org.apache.pekko.NotUsed
 import org.apache.pekko.actor.{ActorSystem, Scheduler}
 import org.apache.pekko.stream.scaladsl.{Sink, Source}
