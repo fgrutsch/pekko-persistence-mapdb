@@ -47,7 +47,7 @@ class MapDbReadJournalRepository(db: DB, conf: ReadJournalConfig.DbConfig)(impli
   private val journals = db.hashSet[JournalRow](conf.name, JournalRowMapDbSerializer()).createOrOpen()
 
   def allPersistenceIds(): Source[String, NotUsed] = {
-    val stream = journals.stream().map(_.persistenceId).distinct()
+    val stream = journals.stream().sorted(JournalRow.orderingComparator).map(_.persistenceId).distinct()
     Source.fromJavaStream(() => stream)
   }
 
