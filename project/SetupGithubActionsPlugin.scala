@@ -8,7 +8,11 @@ object SetupGithubActionsPlugin extends AutoPlugin {
   override def requires: Plugins              = GenerativePlugin
   override def trigger                        = allRequirements
   override def buildSettings: Seq[Setting[_]] = Seq(
-    githubWorkflowPermissions := Some(Permissions.Specify(Map(PermissionScope.IdToken -> PermissionValue.Write))),
+    githubWorkflowPermissions := Some(
+      Permissions.Specify(
+        Map(PermissionScope.IdToken -> PermissionValue.Write, PermissionScope.Contents -> PermissionValue.Write)
+      )
+    ),
     githubWorkflowTargetTags ++= Seq("v*"),
     githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"), JavaSpec.temurin("21")),
     githubWorkflowBuild        := Seq(
