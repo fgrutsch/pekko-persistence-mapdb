@@ -12,7 +12,7 @@ pekko-persistence-mapdb is a plugin for [pekko-persistence](https://pekko.apache
 Add the following dependency to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.fgrutsch" %% "pekko-persistence-mapdb" % "<latest>"
+libraryDependencies += "io.github.fgrutsch" %% "pekko-persistence-mapdb" % "<latest>"
 ```
 
 Add the following to your `application.conf` to use pekko-persistence-mapdb as the persistence backend:
