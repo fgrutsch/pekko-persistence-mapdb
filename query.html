@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
 
 <head>
-<title>Query · Akka Persistence MapDB</title>
+<title>Query · Pekko Persistence MapDB</title>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content='akka-persistence-mapdb-docs'/>
-<link rel="canonical" href="https://github.com/fgrutsch/akka-persistence-mapdbquery.html"/>
+<meta name="description" content='pekko-persistence-mapdb-docs'/>
+<link rel="canonical" href="https://github.com/fgrutsch/pekko-persistence-mapdbquery.html"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italicc" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/page.js"></script>
@@ -29,10 +29,10 @@
 <nav class="off-canvas-nav">
 <div class="nav-home">
 <a href="index.html" >
-<span class="home-icon">⌂</span>Akka Persistence MapDB
+<span class="home-icon">⌂</span>Pekko Persistence MapDB
 </a>
 <div class="version-number">
-0.3.2
+1.0.0
 </div>
 </div>
 <div class="nav-toc">
@@ -54,7 +54,7 @@
 H3.6C3.048,13,3,13.447,3,14c0,0.553,0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1C17,13.447,16.952,13,16.4,13z M3.6,7H16.4
 C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.048,7,3.6,7z"/></svg>
 </a>
-<div class="title"><a href="index.html">Akka Persistence MapDB</a></div>
+<div class="title"><a href="index.html">Pekko Persistence MapDB</a></div>
 
 <!--
 <a href="https://www.example.com" class="logo show-for-medium">logo</a>
@@ -68,10 +68,10 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <nav class="site-nav">
 <div class="nav-home">
 <a href="index.html" >
-<span class="home-icon">⌂</span>Akka Persistence MapDB
+<span class="home-icon">⌂</span>Pekko Persistence MapDB
 </a>
 <div class="version-number">
-0.3.2
+1.0.0
 </div>
 </div>
 <div class="nav-toc">
@@ -94,7 +94,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="medium-12 show-for-medium column">
 <div class="nav-breadcrumbs">
 <ul>
-  <li><a href="index.html">Akka Persistence MapDB</a></li>
+  <li><a href="index.html">Pekko Persistence MapDB</a></li>
   <li>Query</li>
 </ul>
 </div>
@@ -104,24 +104,24 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="page-content row">
 <div class="small-12 large-9 column" id="docs">
 <h1><a href="#query" name="query" class="anchor"><span class="anchor-link"></span></a>Query</h1>
-<p>If you need to query the stored events you can use <a href="https://doc.akka.io/docs/akka/current/persistence-query.html">Persistence Query</a> to stream them from the journal (Scala and Java supported).</p>
+<p>If you need to query the stored events you can use <a href="https://pekko.apache.org/docs/pekko/1.1/persistence-query.html">Persistence Query</a> to stream them from the journal (Scala and Java supported).</p>
 <p>Get read journal in Scala:</p>
-<pre class="prettyprint"><code class="language-scala">import akka.actor.ActorSystem
-import akka.persistence.query.PersistenceQuery
-import com.fgrutsch.akka.persistence.mapdb.query.scaladsl.MapDbReadJournal
+<pre class="prettyprint"><code class="language-scala">import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.persistence.query.PersistenceQuery
+import io.github.fgrutsch.pekko.persistence.mapdb.query.scaladsl.MapDbReadJournal
 
-val actorSystem: ActorSystem        = ???
-val readJournal: MapDbReadJournal   = PersistenceQuery(actorSystem)
-                                       .readJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
+val actorSystem: ActorSystem = ???
+val readJournal: MapDbReadJournal = PersistenceQuery(actorSystem)
+  .readJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
 </code></pre>
 <p>Get read journal in Java:</p>
-<pre class="prettyprint"><code class="language-java">import akka.actor.ActorSystem
-import akka.persistence.query.PersistenceQuery
-import com.fgrutsch.akka.persistence.mapdb.query.javadsl.MapDbReadJournal
+<pre class="prettyprint"><code class="language-java">import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.persistence.query.PersistenceQuery
+import io.github.fgrutsch.pekko.persistence.mapdb.query.javadsl.MapDbReadJournal
 
-final ActorSystem actorSystem         = ???
-final MapDbReadJournal readJournal    = PersistenceQuery.get(actorSystem)
-                                        .getReadJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
+final ActorSystem actorSystem = ???
+final MapDbReadJournal readJournal = PersistenceQuery.get(actorSystem)
+        .getReadJournalFor[MapDbReadJournal](MapDbReadJournal.Identifier)
 </code></pre>
 <p>All query operations are supported:</p>
 <ul>
@@ -135,9 +135,9 @@ final MapDbReadJournal readJournal    = PersistenceQuery.get(actorSystem)
 <h2><a href="#configuration" name="configuration" class="anchor"><span class="anchor-link"></span></a>Configuration</h2>
 <p>The internal behavior of the read journal queries can be changed (e.g. refresh interval). For instructions please check the <a href="configuration.html">Configuration</a> page on how to change that.</p>
 <h2><a href="#event-adapters" name="event-adapters" class="anchor"><span class="anchor-link"></span></a>Event Adapters</h2>
-<p>When reading events from the journal the <code>MapDbReadJournal</code> applies configured <a href="https://doc.akka.io/docs/akka/current/persistence.html#event-adapters">events adapters</a> thay you may have configured in the <a href="journal-snapshots.html#tagging">write plugin</a> (under the <code>mapdb-journal</code> configuration key).</p>
+<p>When reading events from the journal the <code>MapDbReadJournal</code> applies configured <a href="https://pekko.apache.org/docs/pekko/1.1/typed/persistence.html#event-adapters">events adapters</a> thay you may have configured in the <a href="journal-snapshots.html#tagging">write plugin</a> (under the <code>mapdb-journal</code> configuration key).</p>
 <div class="source-github">
-The source code for this page can be found <a href="https://github.com/fgrutsch/akka-persistence-mapdb/tree/v0.3.2/docs/src/main/paradox/query.md">here</a>.
+The source code for this page can be found <a href="https://github.com/fgrutsch/pekko-persistence-mapdb/tree/v1.0.0/docs/src/main/paradox/query.md">here</a>.
 </div>
 
 <div class="nav-next">
@@ -196,7 +196,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 
 <!--
 <div class="copyright">
-<span class="text">&copy; 2022</span>
+<span class="text">&copy; 2026</span>
 <a href="https://www.example.com" class="logo">logo</a>
 </div>
 -->
@@ -221,7 +221,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 <script type="text/javascript" src="lib/prettify/prettify.js"></script>
 <script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
 <script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
-<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.3.2', 'https://github.com/fgrutsch/akka-persistence-mapdb')});</script>
+<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '1.0.0', 'https://github.com/fgrutsch/pekko-persistence-mapdb')});</script>
 
 
 </html>

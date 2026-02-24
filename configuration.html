@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
 
 <head>
-<title>Configuration · Akka Persistence MapDB</title>
+<title>Configuration · Pekko Persistence MapDB</title>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content='akka-persistence-mapdb-docs'/>
-<link rel="canonical" href="https://github.com/fgrutsch/akka-persistence-mapdbconfiguration.html"/>
+<meta name="description" content='pekko-persistence-mapdb-docs'/>
+<link rel="canonical" href="https://github.com/fgrutsch/pekko-persistence-mapdbconfiguration.html"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italicc" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/page.js"></script>
@@ -29,10 +29,10 @@
 <nav class="off-canvas-nav">
 <div class="nav-home">
 <a href="index.html" >
-<span class="home-icon">⌂</span>Akka Persistence MapDB
+<span class="home-icon">⌂</span>Pekko Persistence MapDB
 </a>
 <div class="version-number">
-0.3.2
+1.0.0
 </div>
 </div>
 <div class="nav-toc">
@@ -54,7 +54,7 @@
 H3.6C3.048,13,3,13.447,3,14c0,0.553,0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1C17,13.447,16.952,13,16.4,13z M3.6,7H16.4
 C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.048,7,3.6,7z"/></svg>
 </a>
-<div class="title"><a href="index.html">Akka Persistence MapDB</a></div>
+<div class="title"><a href="index.html">Pekko Persistence MapDB</a></div>
 
 <!--
 <a href="https://www.example.com" class="logo show-for-medium">logo</a>
@@ -68,10 +68,10 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <nav class="site-nav">
 <div class="nav-home">
 <a href="index.html" >
-<span class="home-icon">⌂</span>Akka Persistence MapDB
+<span class="home-icon">⌂</span>Pekko Persistence MapDB
 </a>
 <div class="version-number">
-0.3.2
+1.0.0
 </div>
 </div>
 <div class="nav-toc">
@@ -94,7 +94,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="medium-12 show-for-medium column">
 <div class="nav-breadcrumbs">
 <ul>
-  <li><a href="index.html">Akka Persistence MapDB</a></li>
+  <li><a href="index.html">Pekko Persistence MapDB</a></li>
   <li>Configuration</li>
 </ul>
 </div>
@@ -105,8 +105,8 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="small-12 large-9 column" id="docs">
 <h1><a href="#configuration" name="configuration" class="anchor"><span class="anchor-link"></span></a>Configuration</h1>
 <p>Below you can see the <code>reference.conf</code> that ships with this library and all its related configuration settings that you may want to override.</p>
-<p>The most important setting for you is most likely the storage mode (<code>akka-persistence-mapdb.db.mode</code>).</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/fgrutsch/akka-persistence-mapdb/tree/v0.3.2/core/src/main/resources/reference.conf" target="_blank" title="Go to snippet source">source</a><code class="language-conf">akka-persistence-mapdb {
+<p>The most important setting for you is most likely the storage mode (<code>pekko-persistence-mapdb.db.mode</code>).</p>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/fgrutsch/pekko-persistence-mapdb/tree/v1.0.0/core/src/main/resources/reference.conf" target="_blank" title="Go to snippet source">source</a><code class="language-conf">pekko-persistence-mapdb {
   
   db {
     # The MapDB storage mode. Available modes:
@@ -124,7 +124,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
     # Customization settings if you use the &quot;file&quot; mode
     file {
       # A valid Java Path to be used as the storage location
-      path = &quot;akka-persistence-mapdb_default&quot;
+      path = &quot;pekko-persistence-mapdb_default&quot;
 
       # Whether to delete the file after closing the MapDB connection (useful for testing)
       delete-after-close = false
@@ -134,29 +134,29 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 }
 
 mapdb-journal {
-  class = &quot;com.fgrutsch.akka.persistence.mapdb.journal.MapDbJournal&quot;
+  class = &quot;io.github.fgrutsch.pekko.persistence.mapdb.journal.MapDbJournal&quot;
 
   db {
     # The name that identifies the journal within MapDB&#39;s DB object
     name = &quot;journal&quot;
 
-    commit-required = ${akka-persistence-mapdb.db.transaction-enable}
+    commit-required = ${pekko-persistence-mapdb.db.transaction-enable}
   }
 }
 
 mapdb-snapshot {
-  class = &quot;com.fgrutsch.akka.persistence.mapdb.snapshot.MapDbSnapshotStore&quot;
+  class = &quot;io.github.fgrutsch.pekko.persistence.mapdb.snapshot.MapDbSnapshotStore&quot;
 
   db {
     # The name that identifies the snapshot within MapDB&#39;s DB object
     name = &quot;snapshot&quot;
 
-    commit-required = ${akka-persistence-mapdb.db.transaction-enable}
+    commit-required = ${pekko-persistence-mapdb.db.transaction-enable}
   }
 }
 
 mapdb-read-journal {
-  class = &quot;com.fgrutsch.akka.persistence.mapdb.query.MapDbReadJournalProvider&quot;
+  class = &quot;io.github.fgrutsch.pekko.persistence.mapdb.query.MapDbReadJournalProvider&quot;
   
   # Path to the journal configuration. Read journal uses event adapters from the write plugin when reading messages.
   write-plugin = &quot;mapdb-journal&quot;
@@ -173,7 +173,7 @@ mapdb-read-journal {
   }
 }</code></pre>
 <div class="source-github">
-The source code for this page can be found <a href="https://github.com/fgrutsch/akka-persistence-mapdb/tree/v0.3.2/docs/src/main/paradox/configuration.md">here</a>.
+The source code for this page can be found <a href="https://github.com/fgrutsch/pekko-persistence-mapdb/tree/v1.0.0/docs/src/main/paradox/configuration.md">here</a>.
 </div>
 
 </div>
@@ -215,7 +215,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 
 <!--
 <div class="copyright">
-<span class="text">&copy; 2022</span>
+<span class="text">&copy; 2026</span>
 <a href="https://www.example.com" class="logo">logo</a>
 </div>
 -->
@@ -240,7 +240,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 <script type="text/javascript" src="lib/prettify/prettify.js"></script>
 <script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
 <script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
-<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.3.2', 'https://github.com/fgrutsch/akka-persistence-mapdb')});</script>
+<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '1.0.0', 'https://github.com/fgrutsch/pekko-persistence-mapdb')});</script>
 
 
 </html>

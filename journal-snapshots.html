@@ -2,11 +2,11 @@
 <html class="no-js" lang="en">
 
 <head>
-<title>Journal and Snapshots · Akka Persistence MapDB</title>
+<title>Journal and Snapshots · Pekko Persistence MapDB</title>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content='akka-persistence-mapdb-docs'/>
-<link rel="canonical" href="https://github.com/fgrutsch/akka-persistence-mapdbjournal-snapshots.html"/>
+<meta name="description" content='pekko-persistence-mapdb-docs'/>
+<link rel="canonical" href="https://github.com/fgrutsch/pekko-persistence-mapdbjournal-snapshots.html"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italicc" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/page.js"></script>
@@ -29,10 +29,10 @@
 <nav class="off-canvas-nav">
 <div class="nav-home">
 <a href="index.html" >
-<span class="home-icon">⌂</span>Akka Persistence MapDB
+<span class="home-icon">⌂</span>Pekko Persistence MapDB
 </a>
 <div class="version-number">
-0.3.2
+1.0.0
 </div>
 </div>
 <div class="nav-toc">
@@ -54,7 +54,7 @@
 H3.6C3.048,13,3,13.447,3,14c0,0.553,0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1C17,13.447,16.952,13,16.4,13z M3.6,7H16.4
 C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.048,7,3.6,7z"/></svg>
 </a>
-<div class="title"><a href="index.html">Akka Persistence MapDB</a></div>
+<div class="title"><a href="index.html">Pekko Persistence MapDB</a></div>
 
 <!--
 <a href="https://www.example.com" class="logo show-for-medium">logo</a>
@@ -68,10 +68,10 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <nav class="site-nav">
 <div class="nav-home">
 <a href="index.html" >
-<span class="home-icon">⌂</span>Akka Persistence MapDB
+<span class="home-icon">⌂</span>Pekko Persistence MapDB
 </a>
 <div class="version-number">
-0.3.2
+1.0.0
 </div>
 </div>
 <div class="nav-toc">
@@ -94,7 +94,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="medium-12 show-for-medium column">
 <div class="nav-breadcrumbs">
 <ul>
-  <li><a href="index.html">Akka Persistence MapDB</a></li>
+  <li><a href="index.html">Pekko Persistence MapDB</a></li>
   <li>Journal and Snapshots</li>
 </ul>
 </div>
@@ -104,8 +104,8 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="page-content row">
 <div class="small-12 large-9 column" id="docs">
 <h1><a href="#journal-and-snapshots" name="journal-and-snapshots" class="anchor"><span class="anchor-link"></span></a>Journal and Snapshots</h1>
-<p>Add the following to your <code>application.conf</code> to use akka-persistence-mapdb as the persistence backend:</p>
-<pre><code>akka {
+<p>Add the following to your <code>application.conf</code> to use pekko-persistence-mapdb as the persistence backend:</p>
+<pre><code>pekko {
   persistence {
     journal {
       plugin = &quot;mapdb-journal&quot;
@@ -116,13 +116,13 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
   }
 }
 </code></pre>
-<p>This is the minimum required configuration you need to use <code>akka-persistence-mapdb</code>. No further configuration is needed to get it running. Be aware that this by default stores data in memory, check out the <a href="configuration.html">Configuration</a> page on how to do that.</p>
+<p>This is the minimum required configuration you need to use <code>pekko-persistence-mapdb</code>. No further configuration is needed to get it running. Be aware that this by default stores data in memory, check out the <a href="configuration.html">Configuration</a> page on how to do that.</p>
 <h2><a href="#tagging" name="tagging" class="anchor"><span class="anchor-link"></span></a>Tagging</h2>
-<p>To support tagging you need to provide an <a href="https://doc.akka.io/docs/akka/current/persistence.html#event-adapters">event adapter</a> that wraps your payload using the <code>akka.persistence.journal.Tagged</code> class.</p>
+<p>To support tagging you need to provide an <a href="https://pekko.apache.org/docs/pekko/1.1/typed/persistence.html#event-adapters">event adapter</a> that wraps your payload using the <code>org.apache.pekko.persistence.journal.Tagged</code> class.</p>
 <p>Implementing the event adapter:</p>
 <pre class="prettyprint"><code class="language-scala">package docs.mapdb
 
-import akka.persistence.journal.{EventAdapter, EventSeq, Tagged}
+import org.apache.pekko.persistence.journal.{EventAdapter, EventSeq, Tagged}
 
 final case class TestEvent(name: String, tag: String)
 
@@ -156,7 +156,7 @@ class TestEventAdapter extends EventAdapter {
 }
 </code></pre>
 <div class="source-github">
-The source code for this page can be found <a href="https://github.com/fgrutsch/akka-persistence-mapdb/tree/v0.3.2/docs/src/main/paradox/journal-snapshots.md">here</a>.
+The source code for this page can be found <a href="https://github.com/fgrutsch/pekko-persistence-mapdb/tree/v1.0.0/docs/src/main/paradox/journal-snapshots.md">here</a>.
 </div>
 
 <div class="nav-next">
@@ -214,7 +214,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 
 <!--
 <div class="copyright">
-<span class="text">&copy; 2022</span>
+<span class="text">&copy; 2026</span>
 <a href="https://www.example.com" class="logo">logo</a>
 </div>
 -->
@@ -239,7 +239,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 <script type="text/javascript" src="lib/prettify/prettify.js"></script>
 <script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
 <script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
-<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.3.2', 'https://github.com/fgrutsch/akka-persistence-mapdb')});</script>
+<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '1.0.0', 'https://github.com/fgrutsch/pekko-persistence-mapdb')});</script>
 
 
 </html>
