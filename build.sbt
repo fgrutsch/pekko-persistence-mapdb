@@ -2,7 +2,7 @@ import java.time.LocalDate
 
 ThisBuild / versionScheme      := Some("early-semver")
 ThisBuild / scalaVersion       := crossScalaVersions.value.last
-ThisBuild / crossScalaVersions := Seq("2.13.18", "3.8.2")
+ThisBuild / crossScalaVersions := Seq("2.13.18", "3.8.3")
 ThisBuild / publishTo          := {
   val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
   if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
