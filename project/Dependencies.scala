@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val pekko = "1.4.0"
+    val pekko = "1.5.0"
   }
 
   val core: Seq[ModuleID] = Seq(
