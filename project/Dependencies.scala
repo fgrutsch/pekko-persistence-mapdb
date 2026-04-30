@@ -15,7 +15,7 @@ object Dependencies {
     "org.apache.pekko" %% "pekko-persistence-tck"       % Versions.pekko % Test,
     "org.apache.pekko" %% "pekko-serialization-jackson" % Versions.pekko % Test,
     "org.mapdb"         % "mapdb"                       % "3.1.0",
-    "org.scalatest"    %% "scalatest"                   % "3.2.19"       % Test
+    "org.scalatest"    %% "scalatest"                   % "3.2.20"       % Test
   )
 
   val betterMonadicFor: ModuleID = "com.olegpy" %% "better-monadic-for" % "0.3.1"
