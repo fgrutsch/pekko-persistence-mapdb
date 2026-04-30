@@ -29,11 +29,19 @@ class MapDbJournalRepository(db: DB, conf: JournalConfig.DbConfig)(implicit syst
   implicit private val ec: ExecutionContext = system.dispatcher
 
   private[journal] val journals = db.hashSet[JournalRow](conf.name, JournalRowMapDbSerializer()).createOrOpen()
+  private val insertLock        = new Object
 
   def insert(rows: Seq[JournalRow]): Future[Unit] = {
-    val addAll = (currentHighestOrdering: Long) =>
-      Future {
-        blocking {
+    Future {
+      blocking {
+        insertLock.synchronized {
+          val currentHighestOrdering = journals
+            .stream()
+            .sorted(JournalRow.orderingComparator)
+            .reduce((_, b) => b)
+            .map(_.ordering)
+            .orElse(0L)
+
           val prepared = rows
             .sortBy(_.sequenceNr)
             .zip(LazyList.from(1).map(currentHighestOrdering + _))
@@ -43,11 +51,7 @@ class MapDbJournalRepository(db: DB, conf: JournalConfig.DbConfig)(implicit syst
           if (conf.commitRequired) db.commit()
         }
       }
-
-    for {
-      ordering <- highestOrdering()
-      _        <- addAll(ordering)
-    } yield ()
+    }
   }
 
   def list(persistenceId: String, fromSequenceNr: Long, toSequenceNr: Long, max: Long): Source[JournalRow, NotUsed] = {
@@ -97,18 +101,6 @@ class MapDbJournalRepository(db: DB, conf: JournalConfig.DbConfig)(implicit syst
   def clear(): Future[Unit] = {
     Future(blocking(journals.clear()))
       .map(_ => if (conf.commitRequired) db.commit())
-  }
-
-  private def highestOrdering(): Future[Long] = {
-    val stream = journals
-      .stream()
-      .sorted(JournalRow.orderingComparator)
-
-    Source
-      .fromJavaStream(() => stream)
-      .map(_.ordering)
-      .runWith(Sink.lastOption)
-      .map(_.getOrElse(0L))
   }
 
 }
