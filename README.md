@@ -1,6 +1,6 @@
 # pekko-persistence-mapdb
 
-[![Maven](https://img.shields.io/maven-central/v/io.github.fgrutsch/pekko-persistence-mapdb_2.13?logo=Apache%20Maven&style=for-the-badge)](https://search.maven.org/search?q=g:%22io.github.fgrutsch%22%20AND%20a:%22pekko-persistence-mapdb_2.13%22)
+[![Maven](https://img.shields.io/maven-central/v/io.github.fgrutsch/pekko-persistence-mapdb_2.13?logo=Apache%20Maven&style=for-the-badge)](https://search.maven.org/search?q=g:io.github.fgrutsch%20AND%20a:pekko-persistence-mapdb_2.13)
 [![Github Actions CI Workflow](https://img.shields.io/github/actions/workflow/status/fgrutsch/pekko-persistence-mapdb/ci.yml?logo=Github&style=for-the-badge)](https://github.com/fgrutsch/pekko-persistence-mapdb/actions/workflows/ci.yml?query=branch%3Amain)
 [![Codecov](https://img.shields.io/codecov/c/github/fgrutsch/pekko-persistence-mapdb/main?logo=Codecov&style=for-the-badge)](https://codecov.io/gh/fgrutsch/pekko-persistence-mapdb)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
