@@ -3,11 +3,11 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val pekko = "1.6.0"
+    val pekko = "1.7.0"
   }
 
   val core: Seq[ModuleID] = Seq(
-    "ch.qos.logback"    % "logback-classic"             % "1.5.38"       % Test,
+    "ch.qos.logback"    % "logback-classic"             % "1.6.3"        % Test,
     "org.apache.pekko" %% "pekko-persistence"           % Versions.pekko,
     "org.apache.pekko" %% "pekko-persistence-query"     % Versions.pekko,
     "org.apache.pekko" %% "pekko-slf4j"                 % Versions.pekko,
