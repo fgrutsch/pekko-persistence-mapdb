@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [2.13.18, 3.8.4]
+        scala: [3.9.0, 3.8.4]
         java: [temurin@17, temurin@21]
     runs-on: ${{ matrix.os }}
     steps:
@@ -61,11 +61,11 @@ jobs:
       - if: matrix.scala == '3.8.4'
         run: sbt '++ ${{ matrix.scala }}; coverage; test; coverageReport; coverageAggregate'
 
-      - if: matrix.scala == '2.13.18'
+      - if: matrix.scala == '3.9.0'
         run: sbt '++ ${{ matrix.scala }}; codeVerify; coverage; test; coverageReport; coverageAggregate'
 
       - name: Upload coverage to Codecov
-        if: matrix.scala == '2.13.18'
+        if: matrix.scala == '3.9.0'
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
